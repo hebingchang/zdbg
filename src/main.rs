@@ -8,7 +8,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
         let err: Box<dyn Error> =
-            format!("引数が必要です\n例：{} 実行ファイル [引数*]", args[0]).into();
+            format!("missing arguments.\nhelp: {} command [arguments*]", args[0]).into();
         return Err(err);
     }
 
@@ -36,7 +36,7 @@ fn run_dbg(filename: &str) -> Result<(), Box<dyn Error>> {
                 }
                 rl.add_history_entry(line);
             }
-            Err(ReadlineError::Interrupted) => eprintln!("<<終了はCtrl+D>>"),
+            Err(ReadlineError::Interrupted) => eprintln!("<<press Ctrl+D to quit>>"),
             _ => {
                 if let State::Running(r) = state {
                     // 子プロセスが実行中の場合はkill
